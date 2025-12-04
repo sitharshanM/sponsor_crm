@@ -1,0 +1,6 @@
+vendor/
+uploads/
+*.xlsx
+*.xls
+composer.lock
+
