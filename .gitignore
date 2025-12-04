@@ -3,4 +3,9 @@ uploads/
 *.xlsx
 *.xls
 composer.lock
-
+.git/
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.env
+.DS_Store

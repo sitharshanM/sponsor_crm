@@ -1,0 +1,100 @@
+/* Supabase-inspired Modern UI */
+
+:root {
+  /* Supabase Color Palette */
+  --sb-dark: #1a1a1a;
+  --sb-dark-hover: #2a2a2a;
+  --sb-dark-border: #2e2e2e;
+  --sb-sidebar: #1e1e1e;
+  --sb-sidebar-hover: #2a2a2a;
+  --sb-bg: #0f0f0f;
+  --sb-surface: #1a1a1a;
+  --sb-surface-hover: #242424;
+  --sb-border: #2e2e2e;
+  --sb-text: #ededed;
+  --sb-text-muted: #888888;
+  --sb-text-disabled: #555555;
+  --sb-primary: #3ecf8e;
+  --sb-primary-hover: #2ebd7e;
+  --sb-primary-dark: #2d9d6b;
+  --sb-accent: #4f46e5;
+  --sb-danger: #ef4444;
+  --sb-warning: #f59e0b;
+  --sb-info: #06b6d4;
+  --sb-success: #10b981;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--sb-bg);
+  color: var(--sb-text);
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sb-text-muted);
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.text-muted {
+  color: var(--sb-text-muted);
+}
+
+.text-disabled {
+  color: var(--sb-text-disabled);
+}
+

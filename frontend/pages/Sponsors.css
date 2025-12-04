@@ -1,0 +1,61 @@
+.sponsors-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--sb-text);
+}
+
+.search-bar {
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-bar i {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sb-text-muted);
+}
+
+.search-bar input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 2.5rem;
+  background: var(--sb-dark);
+  border: 1px solid var(--sb-border);
+  border-radius: var(--radius-md);
+  color: var(--sb-text);
+  font-size: 1rem;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--sb-primary);
+  box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.1);
+}
+
+.link {
+  color: var(--sb-primary);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+

@@ -1,0 +1,4 @@
+# API routing for Apache (if using Apache)
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^api/(.*)$ /api/index.php [L,QSA]
