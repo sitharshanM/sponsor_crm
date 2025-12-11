@@ -1,6 +1,16 @@
 <?php
 // Direct API endpoint for auth
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: ' . ($_SERVER['HTTP_ORIGIN'] ?? '*'));
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
 session_start();
 
 require_once __DIR__ . '/../../config/database.php';
@@ -33,7 +43,15 @@ switch ($path) {
         
     case 'login':
         if ($method === 'POST') {
-            $data = json_decode(file_get_contents('php://input'), true);
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+            
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+                break;
+            }
+            
             $username = $data['username'] ?? '';
             $password = $data['password'] ?? '';
             
@@ -58,8 +76,11 @@ switch ($path) {
                 ]);
             } else {
                 http_response_code(401);
-                echo json_encode(['success' => false, 'error' => 'Invalid credentials']);
+                echo json_encode(['success' => false, 'error' => 'Invalid username or password']);
             }
+        } else {
+            http_response_code(405);
+            echo json_encode(['success' => false, 'error' => 'Method not allowed']);
         }
         break;
         

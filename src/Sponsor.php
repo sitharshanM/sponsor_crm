@@ -11,12 +11,12 @@ class Sponsor {
                 VALUES (:company_name, :contact_person, :email, :phone, :industry, :sponsor_type, :status)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ':company_name' => $data['company_name'],
-            ':contact_person' => $data['contact_person'],
-            ':email' => $data['email'],
-            ':phone' => $data['phone'],
-            ':industry' => $data['industry'],
-            ':sponsor_type' => $data['sponsor_type'],
+            ':company_name' => $data['company_name'] ?? '',
+            ':contact_person' => $data['contact_person'] ?? null,
+            ':email' => $data['email'] ?? null,
+            ':phone' => $data['phone'] ?? null,
+            ':industry' => $data['industry'] ?? null,
+            ':sponsor_type' => $data['sponsor_type'] ?? null,
             ':status' => $data['status'] ?? 'new'
         ]);
         return $this->pdo->lastInsertId();

@@ -31,9 +31,24 @@ function SponsorAdd() {
 
     try {
       const response = await api.post('/sponsors', formData)
-      navigate(`/sponsors/${response.data.id}`)
+      if (response.data.success && response.data.id) {
+        navigate(`/sponsors/${response.data.id}`)
+      } else {
+        setError(response.data.error || 'Failed to create sponsor')
+      }
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to create sponsor')
+      let errorMessage = 'Failed to create sponsor'
+      
+      if (err.code === 'ERR_NETWORK' || err.message?.includes('Network Error')) {
+        errorMessage = 'Network error: Unable to connect to server. Please check if the server is running.'
+      } else if (err.response?.data?.error) {
+        errorMessage = err.response.data.error
+      } else if (err.message) {
+        errorMessage = err.message
+      }
+      
+      setError(errorMessage)
+      console.error('Error creating sponsor:', err)
     } finally {
       setLoading(false)
     }

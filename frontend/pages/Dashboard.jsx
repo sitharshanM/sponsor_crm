@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../services/api'
+import AnimatedNumber from '../components/AnimatedNumber'
 import './Dashboard.css'
 
 function Dashboard() {
@@ -58,7 +59,9 @@ function Dashboard() {
             <i className="fas fa-building"></i>
           </div>
           <div className="stat-content">
-            <div className="stat-value">{stats.total}</div>
+            <div className="stat-value">
+              <AnimatedNumber value={stats.total} duration={1200} delay={200} />
+            </div>
             <div className="stat-label">Total Sponsors</div>
           </div>
         </div>
@@ -68,7 +71,9 @@ function Dashboard() {
             <i className="fas fa-circle"></i>
           </div>
           <div className="stat-content">
-            <div className="stat-value">{stats.new}</div>
+            <div className="stat-value">
+              <AnimatedNumber value={stats.new} duration={1200} delay={400} />
+            </div>
             <div className="stat-label">New</div>
           </div>
         </div>
@@ -78,7 +83,9 @@ function Dashboard() {
             <i className="fas fa-eye"></i>
           </div>
           <div className="stat-content">
-            <div className="stat-value">{stats.interested}</div>
+            <div className="stat-value">
+              <AnimatedNumber value={stats.interested} duration={1200} delay={600} />
+            </div>
             <div className="stat-label">Interested</div>
           </div>
         </div>
@@ -88,7 +95,9 @@ function Dashboard() {
             <i className="fas fa-spinner"></i>
           </div>
           <div className="stat-content">
-            <div className="stat-value">{stats.in_progress}</div>
+            <div className="stat-value">
+              <AnimatedNumber value={stats.in_progress} duration={1200} delay={800} />
+            </div>
             <div className="stat-label">In Progress</div>
           </div>
         </div>
@@ -98,7 +107,9 @@ function Dashboard() {
             <i className="fas fa-check-circle"></i>
           </div>
           <div className="stat-content">
-            <div className="stat-value">{stats.closed}</div>
+            <div className="stat-value">
+              <AnimatedNumber value={stats.closed} duration={1200} delay={1000} />
+            </div>
             <div className="stat-label">Closed</div>
           </div>
         </div>

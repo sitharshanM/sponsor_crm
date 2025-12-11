@@ -39,7 +39,13 @@
   border-radius: var(--radius-md);
   color: var(--sb-text);
   font-size: 1rem;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-group input:hover:not(:focus),
+.form-group select:hover:not(:focus),
+.form-group textarea:hover:not(:focus) {
+  border-color: var(--sb-text-muted);
 }
 
 .form-group input:focus,
@@ -47,7 +53,9 @@
 .form-group textarea:focus {
   outline: none;
   border-color: var(--sb-primary);
-  box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.1);
+  box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.2);
+  transform: translateY(-2px);
+  background: var(--sb-surface);
 }
 
 .form-actions {
@@ -62,9 +70,31 @@
   background: var(--sb-dark);
   color: var(--sb-text);
   border: 1px solid var(--sb-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
 }
 
 .btn-secondary:hover {
   background: var(--sb-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:active::before {
+  width: 200px;
+  height: 200px;
 }
 

@@ -4,9 +4,21 @@ $request_uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($request_uri, PHP_URL_PATH);
 
 // Route API requests FIRST (before any file checks)
-if (strpos($path, '/api/') === 0 || strpos($path, '/api') === 0) {
+if (strpos($path, '/api/') === 0 || $path === '/api') {
+    // Check for direct API file in public/api/ (e.g., /api/sponsors.php)
+    if (preg_match('#^/api/(.+)\.php$#', $path, $matches)) {
+        $apiFile = __DIR__ . '/api/' . $matches[1] . '.php';
+        if (file_exists($apiFile)) {
+            require $apiFile;
+            exit;
+        }
+    }
+    
     // Extract the API path
     $apiPath = preg_replace('#^/api/?#', '', $path);
+    // Remove .php extension if present
+    $apiPath = preg_replace('#\.php$#', '', $apiPath);
+    
     $segments = array_values(array_filter(explode('/', $apiPath)));
     
     $resource = $segments[0] ?? 'sponsors';
@@ -16,6 +28,14 @@ if (strpos($path, '/api/') === 0 || strpos($path, '/api') === 0) {
     if ($resource === 'auth' && file_exists(__DIR__ . '/api/auth.php')) {
         $_GET['action'] = $action ?: 'login';
         require __DIR__ . '/api/auth.php';
+        exit;
+    }
+    
+    if ($resource === 'sponsors' && file_exists(__DIR__ . '/api/sponsors.php')) {
+        if ($action) {
+            $_GET['id'] = $action;
+        }
+        require __DIR__ . '/api/sponsors.php';
         exit;
     }
     

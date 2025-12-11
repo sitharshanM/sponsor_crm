@@ -18,26 +18,29 @@ const api = axios.create({
 
 // Override request to use direct endpoints that work with PHP built-in server
 api.interceptors.request.use((config) => {
-  const url = config.url || ''
+  let url = config.url || ''
   
-  // Convert /api/auth/login to /api/auth.php?action=login
-  if (url.includes('/auth/')) {
-    const parts = url.split('/auth/')
-    if (parts.length === 2) {
-      config.url = `/auth.php?action=${parts[1]}`
-    }
-  } else if (url === '/auth' || url.endsWith('/auth')) {
-    config.url = '/auth.php?action=check'
+  // Remove leading slash if present for easier matching
+  if (url.startsWith('/')) {
+    url = url.substring(1)
   }
   
-  // Convert /api/sponsors/:id to /api/sponsors.php?id=:id
-  if (url.includes('/sponsors/')) {
-    const match = url.match(/\/sponsors\/(\d+)/)
+  // Convert auth/login to auth.php?action=login
+  if (url.startsWith('auth/')) {
+    const action = url.replace('auth/', '')
+    config.url = `auth.php?action=${action}`
+  } else if (url === 'auth' || url === 'auth/check') {
+    config.url = 'auth.php?action=check'
+  }
+  
+  // Convert sponsors/:id to sponsors.php?id=:id
+  if (url.startsWith('sponsors/')) {
+    const match = url.match(/sponsors\/(\d+)/)
     if (match) {
-      config.url = `/sponsors.php?id=${match[1]}`
+      config.url = `sponsors.php?id=${match[1]}`
     }
-  } else if (url === '/sponsors' || url.endsWith('/sponsors')) {
-    config.url = '/sponsors.php'
+  } else if (url === 'sponsors') {
+    config.url = 'sponsors.php'
   }
   
   return config

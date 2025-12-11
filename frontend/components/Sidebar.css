@@ -10,6 +10,7 @@
   flex-direction: column;
   z-index: 1000;
   overflow-y: auto;
+  animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-header {
@@ -47,19 +48,45 @@
   color: var(--sb-text-muted);
   text-decoration: none;
   border-radius: var(--radius-md);
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.9375rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--sb-primary);
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: bottom;
 }
 
 .sidebar-item:hover {
   background: var(--sb-sidebar-hover);
   color: var(--sb-text);
+  transform: translateX(4px);
+}
+
+.sidebar-item:hover::before {
+  transform: scaleY(1);
+  transform-origin: top;
 }
 
 .sidebar-item.active {
   background: var(--sb-surface);
   color: var(--sb-primary);
   border-left: 3px solid var(--sb-primary);
+  transform: translateX(0);
+}
+
+.sidebar-item.active::before {
+  transform: scaleY(1);
 }
 
 .sidebar-item i {
@@ -72,10 +99,32 @@
   background: var(--sb-primary);
   color: white !important;
   font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-item-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
 .sidebar-item-primary:hover {
   background: var(--sb-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(62, 207, 142, 0.3);
+}
+
+.sidebar-item-primary:active::after {
+  width: 300px;
+  height: 300px;
 }
 
 .sidebar-footer {
@@ -101,6 +150,13 @@
   justify-content: center;
   font-weight: 600;
   font-size: 0.875rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-user:hover .sidebar-user-avatar {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(62, 207, 142, 0.3);
 }
 
 .sidebar-user-info {

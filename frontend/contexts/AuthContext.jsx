@@ -44,7 +44,11 @@ export function AuthProvider({ children }) {
       }
       return { success: false, error: response.data?.error || 'Invalid credentials' }
     } catch (error) {
-      return { success: false, error: error.response?.data?.error || 'Login failed' }
+      console.error('Login error:', error)
+      const errorMessage = error.response?.data?.error || 
+                          error.message || 
+                          'Login failed. Please check your credentials and try again.'
+      return { success: false, error: errorMessage }
     }
   }
 

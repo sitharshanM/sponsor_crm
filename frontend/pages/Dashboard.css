@@ -1,6 +1,7 @@
 .dashboard {
   max-width: 1400px;
   margin: 0 auto;
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dashboard-header {
@@ -8,12 +9,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xl);
+  animation: fadeInDown 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dashboard-header h1 {
   font-size: 2rem;
   font-weight: 600;
   color: var(--sb-text);
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .stats-grid {
@@ -31,13 +34,42 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(62, 207, 142, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.stat-card:hover::before {
+  left: 100%;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+.stat-card:nth-child(5) { animation-delay: 0.5s; }
 
 .stat-card:hover {
   border-color: var(--sb-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(62, 207, 142, 0.15);
+}
+
+.stat-card:active {
+  transform: translateY(-2px) scale(1);
 }
 
 .stat-icon {
@@ -48,6 +80,11 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .stat-content {
@@ -60,6 +97,12 @@
   color: var(--sb-text);
   line-height: 1;
   margin-bottom: var(--spacing-xs);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover .stat-value {
+  color: var(--sb-primary);
+  transform: scale(1.05);
 }
 
 .stat-label {
@@ -74,6 +117,12 @@
   border: 1px solid var(--sb-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-header {
@@ -95,10 +144,28 @@
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.btn-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--sb-primary);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-link:hover {
-  text-decoration: underline;
+  color: var(--sb-primary-hover);
+  text-decoration: none;
+}
+
+.btn-link:hover::after {
+  width: 100%;
 }
 
 .table-container {
@@ -131,8 +198,26 @@ td {
   color: var(--sb-text);
 }
 
+tbody tr {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+tbody tr:nth-child(1) { animation-delay: 0.05s; }
+tbody tr:nth-child(2) { animation-delay: 0.1s; }
+tbody tr:nth-child(3) { animation-delay: 0.15s; }
+tbody tr:nth-child(4) { animation-delay: 0.2s; }
+tbody tr:nth-child(5) { animation-delay: 0.25s; }
+tbody tr:nth-child(6) { animation-delay: 0.3s; }
+tbody tr:nth-child(7) { animation-delay: 0.35s; }
+tbody tr:nth-child(8) { animation-delay: 0.4s; }
+tbody tr:nth-child(9) { animation-delay: 0.45s; }
+tbody tr:nth-child(10) { animation-delay: 0.5s; }
+
 tbody tr:hover {
   background: var(--sb-dark);
+  transform: translateX(4px);
+  box-shadow: -4px 0 0 var(--sb-primary);
 }
 
 .badge {
@@ -142,6 +227,13 @@ tbody tr:hover {
   font-size: 0.75rem;
   font-weight: 500;
   text-transform: capitalize;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .badge-new {
@@ -174,24 +266,48 @@ tbody tr:hover {
   background: var(--sb-dark);
   color: var(--sb-text-muted);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(62, 207, 142, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
 }
 
 .btn-icon:hover {
   background: var(--sb-primary);
   color: white;
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 4px 8px rgba(62, 207, 142, 0.3);
+}
+
+.btn-icon:active::before {
+  width: 100px;
+  height: 100px;
 }
 
 .empty-state {
   padding: var(--spacing-xl);
   text-align: center;
   color: var(--sb-text-muted);
+  animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .empty-state i {
   font-size: 3rem;
   margin-bottom: var(--spacing-md);
   opacity: 0.5;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .empty-state p {
@@ -203,5 +319,45 @@ tbody tr:hover {
   align-items: center;
   justify-content: center;
   min-height: 400px;
+}
+
+/* Skeleton Loading Animation */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--sb-dark) 0%,
+    var(--sb-surface) 50%,
+    var(--sb-dark) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-title {
+  height: 2rem;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+.skeleton-card {
+  background: var(--sb-surface);
+  border: 1px solid var(--sb-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 

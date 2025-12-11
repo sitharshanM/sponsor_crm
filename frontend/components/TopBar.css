@@ -5,6 +5,9 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  animation: fadeInDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  background: rgba(26, 26, 26, 0.8);
 }
 
 .topbar-content {
@@ -47,13 +50,35 @@
   border-radius: var(--radius-md);
   color: var(--sb-text-muted);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.875rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.topbar-logout::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
 }
 
 .topbar-logout:hover {
   background: var(--sb-surface-hover);
   color: var(--sb-text);
-  border-color: var(--sb-text-muted);
+  border-color: var(--sb-danger);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.2);
+}
+
+.topbar-logout:active::before {
+  width: 200px;
+  height: 200px;
 }
 

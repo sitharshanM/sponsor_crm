@@ -1,6 +1,7 @@
 .sponsor-view-page {
   max-width: 1400px;
   margin: 0 auto;
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .back-link {
@@ -11,16 +12,38 @@
   text-decoration: none;
   font-size: 0.875rem;
   margin-bottom: var(--spacing-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .back-link:hover {
   color: var(--sb-primary);
+  transform: translateX(-4px);
+}
+
+.back-link i {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-link:hover i {
+  transform: translateX(-4px);
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: var(--spacing-lg);
+}
+
+.info-grid .card {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.info-grid .card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.info-grid .card:nth-child(2) {
+  animation-delay: 0.2s;
 }
 
 .info-list {

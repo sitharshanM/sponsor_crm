@@ -16,6 +16,7 @@
   flex: 1;
   padding: var(--spacing-xl);
   overflow-y: auto;
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: 768px) {

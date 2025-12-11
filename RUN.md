@@ -92,6 +92,78 @@ Ensure PHP has write permissions for sessions:
 chmod 755 /var/lib/php/sessions  # or your session directory
 ```
 
+### Login failed
+
+If you can't log in (invalid credentials or login form just reloads), follow these checks:
+
+1. Verify DB connection and credentials
+   - Open config/database.php and confirm DB_HOST, DB_NAME, DB_USER, DB_PASS.
+   - Test connection:
+     ```bash
+     php -r 'new PDO("mysql:host=127.0.0.1;dbname=sponsor_crm","root",""); echo "OK\n";'
+     ```
+
+2. Ensure admin user exists
+   - Check users table:
+     ```bash
+     mysql -u root -p -e "SELECT id,username FROM sponsor_crm.users WHERE username='admin';"
+     ```
+   - If missing, recreate default data:
+     ```bash
+     php setup.php
+     ```
+
+3. If password hashing is used, verify hash and algorithm
+   - Generate a bcrypt hash for testing:
+     ```bash
+     php -r "echo password_hash('admin123', PASSWORD_BCRYPT).PHP_EOL;"
+     ```
+   - Insert an admin (example):
+     ```sql
+     INSERT INTO sponsor_crm.users (username,password,role) VALUES ('admin','<paste_hash_here>','admin');
+     ```
+
+4. Check session configuration and permissions
+   - Verify session.save_path and permissions:
+     ```bash
+     php -i | grep session.save_path
+     ls -ld /var/lib/php/sessions  # replace with your session dir
+     ```
+   - Ensure PHP can write sessions; if not:
+     ```bash
+     sudo chown -R www-data:www-data /var/lib/php/sessions
+     sudo chmod 700 /var/lib/php/sessions
+     ```
+
+5. Inspect logs and browser requests
+   - Tail PHP/Apache/Nginx logs for errors:
+     ```bash
+     tail -n 200 /var/log/apache2/error.log
+     tail -n 200 /var/log/php_errors.log  # if applicable
+     ```
+   - In browser DevTools → Network: check login POST, response, and Set-Cookie header.
+   - Confirm cookies are sent back and session cookie is present.
+
+6. CSRF / token / form issues
+   - If your form uses CSRF tokens, ensure the token is present and validated.
+   - Temporarily enable error display for debugging (do not use in production):
+     ```php
+     ini_set('display_errors', 1);
+     error_reporting(E_ALL);
+     ```
+
+7. Common quick fixes
+   - Re-run setup if DB schema missing: php setup.php
+   - Reset admin password by updating users table with a new password_hash
+   - Confirm correct document root and that code reading config/database.php is the same file you edited
+
+If you want, tell me:
+- The exact error text shown (browser or logs)
+- The contents of config/database.php (sanitized)
+- Whether setup.php ran successfully
+
+I can give the exact SQL or commands to recreate the admin account or fix session/cookie settings.
+
 ## Production Deployment
 
 1. **Disable error display** in `config/app.php`:

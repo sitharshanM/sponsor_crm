@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -12,6 +12,11 @@ import Import from './pages/Import'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import './App.css'
 
+// Page transition wrapper
+function PageTransition({ children }) {
+  return <div className="page-enter">{children}</div>
+}
+
 function PrivateRoute({ children }) {
   const { isAuthenticated, loading } = useAuth()
   
@@ -23,17 +28,19 @@ function PrivateRoute({ children }) {
 }
 
 function AppRoutes() {
+  const location = useLocation()
+  
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
+    <Routes location={location}>
+      <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
       <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
-        <Route index element={<Dashboard />} />
-        <Route path="sponsors" element={<Sponsors />} />
-        <Route path="sponsors/:id" element={<SponsorView />} />
-        <Route path="sponsors/:id/edit" element={<SponsorEdit />} />
-        <Route path="sponsors/add" element={<SponsorAdd />} />
-        <Route path="interactions" element={<Interactions />} />
-        <Route path="import" element={<Import />} />
+        <Route index element={<PageTransition><Dashboard /></PageTransition>} />
+        <Route path="sponsors" element={<PageTransition><Sponsors /></PageTransition>} />
+        <Route path="sponsors/:id" element={<PageTransition><SponsorView /></PageTransition>} />
+        <Route path="sponsors/:id/edit" element={<PageTransition><SponsorEdit /></PageTransition>} />
+        <Route path="sponsors/add" element={<PageTransition><SponsorAdd /></PageTransition>} />
+        <Route path="interactions" element={<PageTransition><Interactions /></PageTransition>} />
+        <Route path="import" element={<PageTransition><Import /></PageTransition>} />
       </Route>
     </Routes>
   )
